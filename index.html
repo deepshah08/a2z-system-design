@@ -9,6 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+          onload="if (typeof renderMathInElement === 'function') renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});"></script>
 </head>
 <body>
 
@@ -89,7 +93,7 @@
 
     <!-- Chapter 01 -->
     <section class="chapter" id="solid">
-      <div class="ch-meta"><span class="ch-num">01</span><span class="ch-tag">Clean Architecture</span></div>
+      <div class="ch-meta"><span class="ch-num">01</span> <span class="ch-tag">Clean Architecture</span></div>
       <h3>SOLID Principles &amp; Object-Oriented Modeling</h3>
       <p>The <strong>SOLID</strong> principles formulate the foundation of maintainable, extensible software architecture: <em>Single Responsibility</em>, <em>Open-Closed</em>, <em>Liskov Substitution</em>, <em>Interface Segregation</em>, and <em>Dependency Inversion</em>. Tight concrete coupling prevents isolated unit testing and turns modular refactorings into cascading code breakages.</p>
       <div class="callout tip">
@@ -102,7 +106,7 @@
 
     <!-- Chapter 02 -->
     <section class="chapter" id="patterns">
-      <div class="ch-meta"><span class="ch-num">02</span><span class="ch-tag">GoF Patterns</span></div>
+      <div class="ch-meta"><span class="ch-num">02</span> <span class="ch-tag">GoF Patterns</span></div>
       <h3>Design Patterns in Action: Strategy, Observer &amp; Pub-Sub</h3>
       <p>Design patterns capture proven architectural idioms across creational, structural, and behavioral domains. The <strong>Observer / Publish-Subscribe</strong> pattern decouples event producers from dynamic event consumers, allowing services to attach and detach event handlers at runtime without modifying the message broker or event emitter.</p>
       <figure class="viz" data-viz="observerPattern">
@@ -112,7 +116,7 @@
 
     <!-- Chapter 03 -->
     <section class="chapter" id="lru-cache">
-      <div class="ch-meta"><span class="ch-num">03</span><span class="ch-tag">Data Structures</span></div>
+      <div class="ch-meta"><span class="ch-num">03</span> <span class="ch-tag">Data Structures</span></div>
       <h3>In-Memory Cache Design: LRU &amp; LFU Mechanics</h3>
       <p>A Least Recently Used (<strong>LRU</strong>) cache achieves true $\mathcal{O}(1)$ time complexity for both <code>get(key)</code> and <code>put(key, val)</code> by marrying two data structures: a <strong>Hash Map</strong> for constant-time key-to-node pointer lookups, and a <strong>Doubly Linked List</strong> maintaining recency order from Most Recently Used (Head) to Least Recently Used (Tail).</p>
       <figure class="viz" data-viz="lruCache">
@@ -122,7 +126,7 @@
 
     <!-- Chapter 04 -->
     <section class="chapter" id="concurrency-cas">
-      <div class="ch-meta"><span class="ch-num">04</span><span class="ch-tag">Low-Level Concurrency</span></div>
+      <div class="ch-meta"><span class="ch-num">04</span> <span class="ch-tag">Low-Level Concurrency</span></div>
       <h3>Concurrency Primitives: Mutex vs. Lock-Free CAS</h3>
       <p>Heavy mutex locks force the OS kernel into expensive thread context switches and futex sleep/wake cycles under contention. Modern high-throughput systems (such as LMAX Disruptor) employ <strong>Compare-And-Swap (CAS)</strong> atomic hardware instructions on circular ring buffers, avoiding lock contention entirely.</p>
       <div class="callout note">
@@ -135,7 +139,7 @@
 
     <!-- Chapter 05 -->
     <section class="chapter" id="thread-pools">
-      <div class="ch-meta"><span class="ch-num">05</span><span class="ch-tag">Scheduling</span></div>
+      <div class="ch-meta"><span class="ch-num">05</span> <span class="ch-tag">Scheduling</span></div>
       <h3>Thread Pools &amp; Work-Stealing Schedulers</h3>
       <p>Naively spawning an unbounded thread per request quickly crashes a server due to stack memory exhaustion ($\sim 1\text{MB}$ per thread) and CPU scheduling thrash. Production runtimes (Java ForkJoin, Go runtime, Tokio) utilize <strong>Work-Stealing Schedulers</strong> where idle worker threads steal queued tasks from the tails of busy workers' double-ended queues (deques).</p>
       <figure class="viz" data-viz="threadPool">
@@ -145,7 +149,7 @@
 
     <!-- Chapter 06 -->
     <section class="chapter" id="state-machines">
-      <div class="ch-meta"><span class="ch-num">06</span><span class="ch-tag">State Modeling</span></div>
+      <div class="ch-meta"><span class="ch-num">06</span> <span class="ch-tag">State Modeling</span></div>
       <h3>Finite State Machines &amp; The State Pattern</h3>
       <p>Critical business entities (e-commerce orders, payment transactions, ride-hailing trips) undergo rigorous lifecycle state transitions. Modeling these with explicit <strong>Finite State Machines (FSMs)</strong> guarantees that invalid transitions (e.g., shipping a cancelled order or refunding an unpaid invoice) are rejected deterministically by state transition guards.</p>
       <figure class="viz" data-viz="stateMachine">
@@ -155,7 +159,7 @@
 
     <!-- Chapter 07 -->
     <section class="chapter" id="storage-engines">
-      <div class="ch-meta"><span class="ch-num">07</span><span class="ch-tag">Storage Engines</span></div>
+      <div class="ch-meta"><span class="ch-num">07</span> <span class="ch-tag">Storage Engines</span></div>
       <h3>Storage Engines: B+ Tree vs. LSM-Tree</h3>
       <p>Database storage engines make fundamental trade-offs between read and write amplification. <strong>B+ Trees</strong> (PostgreSQL, MySQL InnoDB) optimize random reads via balanced tree page lookups but suffer from random disk write I/O. <strong>Log-Structured Merge-Trees (LSM-Trees)</strong> (RocksDB, Cassandra, ScyllaDB) convert all writes into sequential append-only operations via an in-memory <em>MemTable</em> and Write-Ahead Log (WAL), flushing immutable Sorted String Tables (SSTables) to disk and running background merge compaction.</p>
       <figure class="viz" data-viz="lsmTree">
@@ -175,7 +179,7 @@
 
     <!-- Chapter 08 -->
     <section class="chapter" id="load-balancing">
-      <div class="ch-meta"><span class="ch-num">08</span><span class="ch-tag">Traffic Routing</span></div>
+      <div class="ch-meta"><span class="ch-num">08</span> <span class="ch-tag">Traffic Routing</span></div>
       <h3>Load Balancing Algorithms &amp; Health Probing</h3>
       <p>Load balancers distribute traffic across pools of application instances. <strong>Round Robin</strong> distributes requests sequentially; <strong>Weighted Least Connections</strong> directs traffic toward instances with the smallest active concurrency; and layer-7 path-based routing inspects HTTP headers. Active health probes continually isolate crashed or degraded backends from the traffic pool.</p>
       <figure class="viz" data-viz="loadBalancer">
@@ -185,7 +189,7 @@
 
     <!-- Chapter 09 -->
     <section class="chapter" id="consistent-hashing">
-      <div class="ch-meta"><span class="ch-num">09</span><span class="ch-tag">Data Partitioning</span></div>
+      <div class="ch-meta"><span class="ch-num">09</span> <span class="ch-tag">Data Partitioning</span></div>
       <h3>Consistent Hashing &amp; Virtual Nodes</h3>
       <p>Standard modular hashing ($\text{hash}(key) \pmod N$) suffers catastrophic rebalancing when a node is added or removed, invalidating nearly $100\%$ of cached keys. <strong>Consistent Hashing</strong> maps both servers and keys onto a continuous ring $[0, 2^{32}-1]$. Adding or removing a server reassigns only $K/N$ keys on average. <strong>Virtual Nodes</strong> smooth out non-uniform key distributions and eliminate hot spots.</p>
       <figure class="viz" data-viz="consistentHashing">
@@ -195,7 +199,7 @@
 
     <!-- Chapter 10 -->
     <section class="chapter" id="rate-limiting">
-      <div class="ch-meta"><span class="ch-num">10</span><span class="ch-tag">Traffic Shaping</span></div>
+      <div class="ch-meta"><span class="ch-num">10</span> <span class="ch-tag">Traffic Shaping</span></div>
       <h3>Rate Limiting Algorithms: Token Bucket vs. Sliding Window</h3>
       <p>Rate limiting shields services from denial-of-service surges and enforces multi-tenant usage quotas. The <strong>Token Bucket</strong> algorithm permits controlled bursts up to bucket capacity and refills steadily. The <strong>Sliding Window Counter</strong> prevents traffic spike exploitation across fixed window boundaries.</p>
       <figure class="viz" data-viz="rateLimiter">
@@ -205,7 +209,7 @@
 
     <!-- Chapter 11 -->
     <section class="chapter" id="caching-stampede">
-      <div class="ch-meta"><span class="ch-num">11</span><span class="ch-tag">Caching Strategies</span></div>
+      <div class="ch-meta"><span class="ch-num">11</span> <span class="ch-tag">Caching Strategies</span></div>
       <h3>Distributed Caching &amp; The Thundering Herd Problem</h3>
       <p>When an intensely popular cached key expires, thousands of concurrent client requests suddenly experience a cache miss and rush to query the database simultaneously—a catastrophic failure known as a <strong>Cache Stampede / Thundering Herd</strong>. Employing <em>Singleflight</em> or distributed mutex locking ensures only one background worker computes the query while all others wait and consume the cached result.</p>
       <figure class="viz" data-viz="cacheStampede">
@@ -215,7 +219,7 @@
 
     <!-- Chapter 12 -->
     <section class="chapter" id="snowflake-id">
-      <div class="ch-meta"><span class="ch-num">12</span><span class="ch-tag">Unique Identifiers</span></div>
+      <div class="ch-meta"><span class="ch-num">12</span> <span class="ch-tag">Unique Identifiers</span></div>
       <h3>Distributed Unique ID Generation: Twitter Snowflake</h3>
       <p>Auto-incrementing database primary keys create single-point-of-failure bottlenecks and leak business volume metrics. <strong>Twitter Snowflake</strong> generates 64-bit globally unique, roughly time-sortable IDs composed of: 1 sign bit, 41 timestamp bits (giving $\sim 69$ years of millisecond precision), 10 datacenter/machine bits ($1,024$ nodes), and 12 sequence bits ($4,096$ IDs per millisecond per node).</p>
       <figure class="viz" data-viz="snowflakeId">
@@ -225,7 +229,7 @@
 
     <!-- Chapter 13 -->
     <section class="chapter" id="bloom-filters">
-      <div class="ch-meta"><span class="ch-num">13</span><span class="ch-tag">Probabilistic Filters</span></div>
+      <div class="ch-meta"><span class="ch-num">13</span> <span class="ch-tag">Probabilistic Filters</span></div>
       <h3>Probabilistic Data Structures: Bloom Filters</h3>
       <p>A <strong>Bloom Filter</strong> is a space-efficient probabilistic data structure used to test set membership in constant time. It guarantees <em>zero false negatives</em> (if it returns "not in set", the item is definitively absent). It may yield a controlled <em>false positive</em> rate governed by bit-array size $m$, element count $n$, and hash function count $k$ via $p \approx (1 - e^{-kn/m})^k$.</p>
       <figure class="viz" data-viz="bloomFilter">
@@ -245,7 +249,7 @@
 
     <!-- Chapter 14 -->
     <section class="chapter" id="pacelc">
-      <div class="ch-meta"><span class="ch-num">14</span><span class="ch-tag">Theoretical Limits</span></div>
+      <div class="ch-meta"><span class="ch-num">14</span> <span class="ch-tag">Theoretical Limits</span></div>
       <h3>CAP &amp; PACELC Theorems</h3>
       <p>The <strong>CAP Theorem</strong> proves that a distributed data store cannot simultaneously achieve Consistency, Availability, and Partition Tolerance. Daniel Abadi extended this with the <strong>PACELC Theorem</strong>: <em>If there is a Partition (P), trade Consistency (C) vs. Availability (A); Else (E), trade Latency (L) vs. Consistency (C)</em>.</p>
       <figure class="viz" data-viz="pacelcMatrix">
@@ -255,7 +259,7 @@
 
     <!-- Chapter 15 -->
     <section class="chapter" id="sharding">
-      <div class="ch-meta"><span class="ch-num">15</span><span class="ch-tag">Horizontal Sharding</span></div>
+      <div class="ch-meta"><span class="ch-num">15</span> <span class="ch-tag">Horizontal Sharding</span></div>
       <h3>Database Sharding &amp; Partitioning Strategies</h3>
       <p>When dataset size exceeds the capacity of a single physical storage server, <strong>horizontal sharding</strong> partitions rows across multiple autonomous database instances. Choosing an effective shard key (e.g., <code>hash(user_id) % N</code>) prevents data skew and minimizes expensive cross-shard scatter-gather joins.</p>
       <figure class="viz" data-viz="databaseSharding">
@@ -265,7 +269,7 @@
 
     <!-- Chapter 16 -->
     <section class="chapter" id="quorum">
-      <div class="ch-meta"><span class="ch-num">16</span><span class="ch-tag">Quorum Consistency</span></div>
+      <div class="ch-meta"><span class="ch-num">16</span> <span class="ch-tag">Quorum Consistency</span></div>
       <h3>Leaderless Replication &amp; Dynamo-Style Quorums</h3>
       <p>Leaderless systems (Amazon Dynamo, Apache Cassandra) configure $N$ total replicas, write quorum $W$, and read quorum $R$. Under the <strong>Pigeonhole Principle</strong>, if $R + W > N$, the read quorum and write quorum must overlap by at least one node, guaranteeing strong consistency. If $R + W \le N$, stale reads are possible in exchange for ultra-low latency.</p>
       <figure class="viz" data-viz="quorumConsistency">
@@ -275,7 +279,7 @@
 
     <!-- Chapter 17 -->
     <section class="chapter" id="raft">
-      <div class="ch-meta"><span class="ch-num">17</span><span class="ch-tag">Consensus Algorithms</span></div>
+      <div class="ch-meta"><span class="ch-num">17</span> <span class="ch-tag">Consensus Algorithms</span></div>
       <h3>Distributed Consensus: The Raft Protocol</h3>
       <p>Distributed consensus enables a cluster of nodes to agree on a sequence of state machine operations despite crashes and network delays. <strong>Raft</strong> decomposes consensus into understandable components: <em>Leader Election</em> via randomized election timers and <em>Log Replication</em> requiring majority ($\lfloor N/2 \rfloor + 1$) quorum acknowledgment before committing.</p>
       <figure class="viz" data-viz="raftConsensus">
@@ -285,7 +289,7 @@
 
     <!-- Chapter 18 -->
     <section class="chapter" id="transactions-saga">
-      <div class="ch-meta"><span class="ch-num">18</span><span class="ch-tag">Distributed Transactions</span></div>
+      <div class="ch-meta"><span class="ch-num">18</span> <span class="ch-tag">Distributed Transactions</span></div>
       <h3>Distributed Transactions: 2PC vs. The Saga Pattern</h3>
       <p>Classic <strong>Two-Phase Commit (2PC)</strong> coordinates ACID transactions via Prepare and Commit phases, but holds blocking row locks that bottleneck high-throughput microservices. The <strong>Saga Pattern</strong> coordinates asynchronous local transactions with forward execution and backward <em>compensating transactions</em> if a downstream step fails.</p>
       <figure class="viz" data-viz="twoPhaseCommit">
@@ -295,7 +299,7 @@
 
     <!-- Chapter 19 -->
     <section class="chapter" id="kafka">
-      <div class="ch-meta"><span class="ch-num">19</span><span class="ch-tag">Event Streaming</span></div>
+      <div class="ch-meta"><span class="ch-num">19</span> <span class="ch-tag">Event Streaming</span></div>
       <h3>Message Queues &amp; Event Streaming: Kafka Internals</h3>
       <p>Unlike traditional message brokers (RabbitMQ) that delete messages upon consumption, <strong>Apache Kafka</strong> organizes topics into immutable, append-only partitioned commit logs. Consumers track their own offsets and are grouped into <strong>Consumer Groups</strong>, allowing massive horizontal read scaling and seamless group rebalancing when nodes join or fail.</p>
       <figure class="viz" data-viz="kafkaStreaming">
@@ -305,7 +309,7 @@
 
     <!-- Chapter 20 -->
     <section class="chapter" id="dist-lock">
-      <div class="ch-meta"><span class="ch-num">20</span><span class="ch-tag">Coordination</span></div>
+      <div class="ch-meta"><span class="ch-num">20</span> <span class="ch-tag">Coordination</span></div>
       <h3>Distributed Locking &amp; Fencing Tokens</h3>
       <p>Distributed locks based solely on time-to-live (TTL) expiration can lead to data corruption if a client experiences an unexpected JVM garbage collection pause or network blip. As Martin Kleppmann proved, distributed locks must issue monotonically increasing <strong>Fencing Tokens</strong> ($T, T+1, \dots$) so shared storage engines can reject stale writes from expired lock holders.</p>
       <figure class="viz" data-viz="distributedLock">
@@ -315,7 +319,7 @@
 
     <!-- Chapter 21 -->
     <section class="chapter" id="crdt">
-      <div class="ch-meta"><span class="ch-num">21</span><span class="ch-tag">Eventual Consistency</span></div>
+      <div class="ch-meta"><span class="ch-num">21</span> <span class="ch-tag">Eventual Consistency</span></div>
       <h3>Conflict-Free Replicated Data Types (CRDTs)</h3>
       <p>In distributed, offline-first collaborative systems, central locking is impractical. <strong>CRDTs</strong> (Conflict-free Replicated Data Types) provide mathematical convergence guarantees: regardless of message reordering or temporary network partitions, replicas converge deterministically without central coordination using commutative, associative, and idempotent merge operations.</p>
       <figure class="viz" data-viz="crdtSync">
@@ -335,7 +339,7 @@
 
     <!-- Chapter 22 -->
     <section class="chapter" id="tinyurl">
-      <div class="ch-meta"><span class="ch-num">22</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">22</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing a URL Shortener (TinyURL)</h3>
       <p>A URL shortener maps lengthy URLs to compact 7-character Base62 keys ($[0\text{-}9, a\text{-}z, A\text{-}Z]$). With $62^7 \approx 3.5 \times 10^{12}$ (3.5 trillion) available unique codes, a dedicated <strong>Key Generation Service (KGS)</strong> pre-generates unique keys into memory buffers, eliminating hash collision retry penalties and database write locks.</p>
       <figure class="viz" data-viz="tinyUrl">
@@ -345,7 +349,7 @@
 
     <!-- Chapter 23 -->
     <section class="chapter" id="crawler">
-      <div class="ch-meta"><span class="ch-num">23</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">23</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing a Distributed Web Crawler</h3>
       <p>Crawling billions of web pages requires an intelligent <strong>URL Frontier</strong> architecture that balances <em>Priority</em> (high-value pages first) and <em>Politeness</em> (never overwhelming a single host with parallel requests). A distributed Bloom filter discards duplicate URLs before they enter the download queue, saving terabytes of network bandwidth.</p>
       <figure class="viz" data-viz="webCrawler">
@@ -355,7 +359,7 @@
 
     <!-- Chapter 24 -->
     <section class="chapter" id="chat">
-      <div class="ch-meta"><span class="ch-num">24</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">24</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing a Real-Time Chat &amp; Notification System</h3>
       <p>A real-time chat service maintains millions of persistent, stateful <strong>WebSocket</strong> connections across distributed gateway servers. Messages published to a chat room are routed across gateways via a high-performance <strong>Redis Pub/Sub</strong> backplane, while a dedicated <strong>Presence Service</strong> monitors client heartbeat pings to detect disconnections.</p>
       <figure class="viz" data-viz="chatWebsocket">
@@ -365,7 +369,7 @@
 
     <!-- Chapter 25 -->
     <section class="chapter" id="video-streaming">
-      <div class="ch-meta"><span class="ch-num">25</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">25</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing a Video Streaming Platform (YouTube / Netflix)</h3>
       <p>Video streaming platforms ingest raw multi-gigabyte video files, transcode them into multiple resolution profiles (1080p, 720p, 480p), and slice them into 2-to-6 second chunks for <strong>HLS / MPEG-DASH</strong> streaming. Client players continuously monitor available bandwidth and buffer health, executing <strong>Adaptive Bitrate (ABR)</strong> profile switching without playback stalls.</p>
       <figure class="viz" data-viz="videoStreaming">
@@ -375,7 +379,7 @@
 
     <!-- Chapter 26 -->
     <section class="chapter" id="search-index">
-      <div class="ch-meta"><span class="ch-num">26</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">26</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing an Inverted Index &amp; Distributed Search Engine</h3>
       <p>Search engines (Elasticsearch, Apache Lucene) build <strong>Inverted Indexes</strong> that map tokenized terms to sorted lists of matching document identifiers (postings lists). Multi-term queries intersect postings lists in linear $\mathcal{O}(M + N)$ time using skip pointers and compute document relevance scores via algorithms like BM25.</p>
       <figure class="viz" data-viz="invertedIndex">
@@ -385,7 +389,7 @@
 
     <!-- Chapter 27 -->
     <section class="chapter" id="collab-editor">
-      <div class="ch-meta"><span class="ch-num">27</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">27</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing a Real-Time Collaborative Document Editor</h3>
       <p>When multiple users edit a shared document concurrently without network locks, characters inserted at the same index can overwrite or corrupt text. Real-time collaborative engines utilize <strong>Operational Transformation (OT)</strong> or <strong>CRDT Fractional Indexing</strong> (Yjs, Automerge) to guarantee that remote edits preserve user intent and converge identically on all clients.</p>
       <figure class="viz" data-viz="collabEditor">
@@ -395,7 +399,7 @@
 
     <!-- Chapter 28 -->
     <section class="chapter" id="observability">
-      <div class="ch-meta"><span class="ch-num">28</span><span class="ch-tag">System Blueprint</span></div>
+      <div class="ch-meta"><span class="ch-num">28</span> <span class="ch-tag">System Blueprint</span></div>
       <h3>Designing Distributed Observability: Tracing &amp; Metrics</h3>
       <p>Debugging multi-tier distributed microservices requires end-to-end distributed tracing. Using standard <strong>W3C TraceContext</strong> headers (<code>traceparent</code>), each request propagates a global <code>TraceID</code> and localized <code>SpanID</code> across network hops, assembling an end-to-end flame chart that pinpoints database and downstream service latency bottlenecks.</p>
       <figure class="viz" data-viz="distributedTracing">
