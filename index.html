@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>System Design, Component by Component — An Explorable Architectural Guide</title>
+  <meta name="description" content="An interactive, visual field guide to system design fundamentals: from Low-Level Design (SOLID, LRU, Lock-Free CAS) and Distributed Infrastructure (Load Balancing, Consistent Hashing, Rate Limiting) to Raft Consensus, Kafka, and hyperscale case studies.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-head">
+  <div class="brand">
+    <span class="badge">CURRICULUM</span>
+    <span class="title">System Design, Component by Component</span>
+  </div>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">◐ Theme</button>
+</header>
+
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Interactive Systems Field Guide</p>
+    <h1>System Design, Component by Component</h1>
+    <p class="lede">Synthesizing Martin Kleppmann (<em>Designing Data-Intensive Applications</em>), Alex Xu (<em>System Design Interview</em>), the Gang of Four (<em>Design Patterns</em>), and real-world hyperscale engineering practices into an explorable, visual architecture guide. From object-oriented SOLID decoupling, in-memory LRU mechanics, and lock-free CAS atomics to distributed consistent hashing, Raft consensus, Kafka streaming, and end-to-end production blueprints.</p>
+    <p class="hero-hint">↓ Scroll through the curriculum or test the live Distributed System Capacity &amp; Bottleneck Arena below.</p>
+  </div>
+  <figure class="viz viz-hero" data-viz="systemHero">
+    <figcaption>Figure 00 — Interactive Distributed System Capacity Arena: Dynamically adjust ingress QPS, CDN offload, and cache hit ratios to observe queue backpressure, database IOPS saturation, and p99 latency spikes.</figcaption>
+  </figure>
+</section>
+
+<div class="layout">
+  <nav class="toc" aria-label="Table of contents">
+    <details class="toc-details" open>
+      <summary>Curriculum Index</summary>
+      <ol class="toc-list">
+        <li class="toc-part">Part I · Low-Level Design &amp; Concurrency</li>
+        <li><a href="#solid"><span class="toc-num">01</span><span>SOLID Principles</span></a></li>
+        <li><a href="#patterns"><span class="toc-num">02</span><span>Design Patterns</span></a></li>
+        <li><a href="#lru-cache"><span class="toc-num">03</span><span>In-Memory LRU Cache</span></a></li>
+        <li><a href="#concurrency-cas"><span class="toc-num">04</span><span>Lock-Free Atomics &amp; CAS</span></a></li>
+        <li><a href="#thread-pools"><span class="toc-num">05</span><span>Thread Pools &amp; Stealing</span></a></li>
+        <li><a href="#state-machines"><span class="toc-num">06</span><span>State Pattern &amp; FSMs</span></a></li>
+        <li><a href="#storage-engines"><span class="toc-num">07</span><span>LSM-Tree vs. B+ Tree</span></a></li>
+
+        <li class="toc-part">Part II · Scalability &amp; Distributed Infrastructure</li>
+        <li><a href="#load-balancing"><span class="toc-num">08</span><span>Load Balancing</span></a></li>
+        <li><a href="#consistent-hashing"><span class="toc-num">09</span><span>Consistent Hashing</span></a></li>
+        <li><a href="#rate-limiting"><span class="toc-num">10</span><span>Rate Limiting</span></a></li>
+        <li><a href="#caching-stampede"><span class="toc-num">11</span><span>Cache Stampede &amp; Locks</span></a></li>
+        <li><a href="#snowflake-id"><span class="toc-num">12</span><span>Distributed Unique IDs</span></a></li>
+        <li><a href="#bloom-filters"><span class="toc-num">13</span><span>Bloom Filters</span></a></li>
+
+        <li class="toc-part">Part III · Data Systems, Consistency &amp; Consensus</li>
+        <li><a href="#pacelc"><span class="toc-num">14</span><span>CAP &amp; PACELC Theorems</span></a></li>
+        <li><a href="#sharding"><span class="toc-num">15</span><span>Database Sharding</span></a></li>
+        <li><a href="#quorum"><span class="toc-num">16</span><span>Quorum Replication</span></a></li>
+        <li><a href="#raft"><span class="toc-num">17</span><span>Raft Consensus</span></a></li>
+        <li><a href="#transactions-saga"><span class="toc-num">18</span><span>2PC vs. Saga Pattern</span></a></li>
+        <li><a href="#kafka"><span class="toc-num">19</span><span>Kafka &amp; Event Logs</span></a></li>
+        <li><a href="#dist-lock"><span class="toc-num">20</span><span>Distributed Locks</span></a></li>
+        <li><a href="#crdt"><span class="toc-num">21</span><span>Conflict-Free CRDTs</span></a></li>
+
+        <li class="toc-part">Part IV · Real-World Architectural Blueprints</li>
+        <li><a href="#tinyurl"><span class="toc-num">22</span><span>URL Shortener (TinyURL)</span></a></li>
+        <li><a href="#crawler"><span class="toc-num">23</span><span>Distributed Web Crawler</span></a></li>
+        <li><a href="#chat"><span class="toc-num">24</span><span>Real-Time Chat &amp; WS</span></a></li>
+        <li><a href="#video-streaming"><span class="toc-num">25</span><span>Video Streaming (HLS)</span></a></li>
+        <li><a href="#search-index"><span class="toc-num">26</span><span>Search &amp; Inverted Index</span></a></li>
+        <li><a href="#collab-editor"><span class="toc-num">27</span><span>Collaborative Editor</span></a></li>
+        <li><a href="#observability"><span class="toc-num">28</span><span>Distributed Tracing</span></a></li>
+      </ol>
+    </details>
+  </nav>
+
+  <main class="content">
+
+    <!-- ====================================================================
+         PART I: LOW-LEVEL DESIGN, OOP & CONCURRENCY FOUNDATIONS
+         ==================================================================== -->
+    <header class="part-head" id="part-1">
+      <span class="part-label">Part I</span>
+      <h2>Low-Level Design, OOP &amp; Concurrency Foundations</h2>
+      <p class="part-desc">Before distributing systems across hundreds of network nodes, clean boundaries and concurrency primitives must be mastered at the single-process level. This section explores object-oriented SOLID decoupling, in-memory caching mechanics, lock-free circular buffers, work-stealing thread pools, finite state machines, and disk storage layout engines.</p>
+    </header>
+
+    <!-- Chapter 01 -->
+    <section class="chapter" id="solid">
+      <div class="ch-meta"><span class="ch-num">01</span><span class="ch-tag">Clean Architecture</span></div>
+      <h3>SOLID Principles &amp; Object-Oriented Modeling</h3>
+      <p>The <strong>SOLID</strong> principles formulate the foundation of maintainable, extensible software architecture: <em>Single Responsibility</em>, <em>Open-Closed</em>, <em>Liskov Substitution</em>, <em>Interface Segregation</em>, and <em>Dependency Inversion</em>. Tight concrete coupling prevents isolated unit testing and turns modular refactorings into cascading code breakages.</p>
+      <div class="callout tip">
+        <strong>The Dependency Inversion Principle (DIP):</strong> High-level domain business logic must never depend directly on low-level database or network implementations; both must depend upon abstract interfaces (contracts).
+      </div>
+      <figure class="viz" data-viz="solidPrinciples">
+        <figcaption>Figure 01 — SOLID Refactoring Engine: Toggle between tightly coupled concrete dependencies and interface-driven dependency injection across the 5 core principles.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 02 -->
+    <section class="chapter" id="patterns">
+      <div class="ch-meta"><span class="ch-num">02</span><span class="ch-tag">GoF Patterns</span></div>
+      <h3>Design Patterns in Action: Strategy, Observer &amp; Pub-Sub</h3>
+      <p>Design patterns capture proven architectural idioms across creational, structural, and behavioral domains. The <strong>Observer / Publish-Subscribe</strong> pattern decouples event producers from dynamic event consumers, allowing services to attach and detach event handlers at runtime without modifying the message broker or event emitter.</p>
+      <figure class="viz" data-viz="observerPattern">
+        <figcaption>Figure 02 — Observer &amp; Pub/Sub Event Dispatcher: Emit business events and observe decoupled subscribers receive messages or detach on the fly.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 03 -->
+    <section class="chapter" id="lru-cache">
+      <div class="ch-meta"><span class="ch-num">03</span><span class="ch-tag">Data Structures</span></div>
+      <h3>In-Memory Cache Design: LRU &amp; LFU Mechanics</h3>
+      <p>A Least Recently Used (<strong>LRU</strong>) cache achieves true $\mathcal{O}(1)$ time complexity for both <code>get(key)</code> and <code>put(key, val)</code> by marrying two data structures: a <strong>Hash Map</strong> for constant-time key-to-node pointer lookups, and a <strong>Doubly Linked List</strong> maintaining recency order from Most Recently Used (Head) to Least Recently Used (Tail).</p>
+      <figure class="viz" data-viz="lruCache">
+        <figcaption>Figure 03 — Interactive LRU Cache Step Engine: Execute Get and Put operations with a capacity of 4 items; observe pointer promotions to Head and tail-end evictions.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 04 -->
+    <section class="chapter" id="concurrency-cas">
+      <div class="ch-meta"><span class="ch-num">04</span><span class="ch-tag">Low-Level Concurrency</span></div>
+      <h3>Concurrency Primitives: Mutex vs. Lock-Free CAS</h3>
+      <p>Heavy mutex locks force the OS kernel into expensive thread context switches and futex sleep/wake cycles under contention. Modern high-throughput systems (such as LMAX Disruptor) employ <strong>Compare-And-Swap (CAS)</strong> atomic hardware instructions on circular ring buffers, avoiding lock contention entirely.</p>
+      <div class="callout note">
+        <strong>Lock-Free Progress Guarantee:</strong> A lock-free algorithm guarantees that at least one thread in the system makes forward progress in a finite number of steps, eliminating deadlocks and priority inversions.
+      </div>
+      <figure class="viz" data-viz="casRingBuffer">
+        <figcaption>Figure 04 — Lock-Free Ring Buffer vs. Mutex Contention: Step atomic CAS head and tail pointer updates on a circular queue and observe contention handling.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 05 -->
+    <section class="chapter" id="thread-pools">
+      <div class="ch-meta"><span class="ch-num">05</span><span class="ch-tag">Scheduling</span></div>
+      <h3>Thread Pools &amp; Work-Stealing Schedulers</h3>
+      <p>Naively spawning an unbounded thread per request quickly crashes a server due to stack memory exhaustion ($\sim 1\text{MB}$ per thread) and CPU scheduling thrash. Production runtimes (Java ForkJoin, Go runtime, Tokio) utilize <strong>Work-Stealing Schedulers</strong> where idle worker threads steal queued tasks from the tails of busy workers' double-ended queues (deques).</p>
+      <figure class="viz" data-viz="threadPool">
+        <figcaption>Figure 05 — Multi-Worker Thread Pool &amp; Work-Stealing: Submit task bursts and watch idle worker threads steal pending work from saturated thread deques.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 06 -->
+    <section class="chapter" id="state-machines">
+      <div class="ch-meta"><span class="ch-num">06</span><span class="ch-tag">State Modeling</span></div>
+      <h3>Finite State Machines &amp; The State Pattern</h3>
+      <p>Critical business entities (e-commerce orders, payment transactions, ride-hailing trips) undergo rigorous lifecycle state transitions. Modeling these with explicit <strong>Finite State Machines (FSMs)</strong> guarantees that invalid transitions (e.g., shipping a cancelled order or refunding an unpaid invoice) are rejected deterministically by state transition guards.</p>
+      <figure class="viz" data-viz="stateMachine">
+        <figcaption>Figure 06 — Order Lifecycle Finite State Machine: Step through valid lifecycle states (Created ➔ Paid ➔ Shipped ➔ Delivered) and observe transition guard rejection.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 07 -->
+    <section class="chapter" id="storage-engines">
+      <div class="ch-meta"><span class="ch-num">07</span><span class="ch-tag">Storage Engines</span></div>
+      <h3>Storage Engines: B+ Tree vs. LSM-Tree</h3>
+      <p>Database storage engines make fundamental trade-offs between read and write amplification. <strong>B+ Trees</strong> (PostgreSQL, MySQL InnoDB) optimize random reads via balanced tree page lookups but suffer from random disk write I/O. <strong>Log-Structured Merge-Trees (LSM-Trees)</strong> (RocksDB, Cassandra, ScyllaDB) convert all writes into sequential append-only operations via an in-memory <em>MemTable</em> and Write-Ahead Log (WAL), flushing immutable Sorted String Tables (SSTables) to disk and running background merge compaction.</p>
+      <figure class="viz" data-viz="lsmTree">
+        <figcaption>Figure 07 — LSM-Tree Storage Engine Simulator: Write keys into in-memory MemTable, trigger WAL flushes to Level-0 SSTables, and execute leveled compaction.</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ====================================================================
+         PART II: SCALABILITY & DISTRIBUTED INFRASTRUCTURE PRIMITIVES
+         ==================================================================== -->
+    <header class="part-head" id="part-2">
+      <span class="part-label">Part II</span>
+      <h2>Scalability &amp; Distributed Infrastructure Primitives</h2>
+      <p class="part-desc">Scaling horizontally requires a resilient toolkit of traffic routers, hashing rings, admission controllers, edge caches, and probabilistic filters. This part examines how modern systems scale horizontally across hundreds of compute nodes without collapsing under surge loads.</p>
+    </header>
+
+    <!-- Chapter 08 -->
+    <section class="chapter" id="load-balancing">
+      <div class="ch-meta"><span class="ch-num">08</span><span class="ch-tag">Traffic Routing</span></div>
+      <h3>Load Balancing Algorithms &amp; Health Probing</h3>
+      <p>Load balancers distribute traffic across pools of application instances. <strong>Round Robin</strong> distributes requests sequentially; <strong>Weighted Least Connections</strong> directs traffic toward instances with the smallest active concurrency; and layer-7 path-based routing inspects HTTP headers. Active health probes continually isolate crashed or degraded backends from the traffic pool.</p>
+      <figure class="viz" data-viz="loadBalancer">
+        <figcaption>Figure 08 — Load Balancer Traffic Router: Toggle Round Robin vs. Least Connections, simulate backend server failure, and observe dynamic health check failovers.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 09 -->
+    <section class="chapter" id="consistent-hashing">
+      <div class="ch-meta"><span class="ch-num">09</span><span class="ch-tag">Data Partitioning</span></div>
+      <h3>Consistent Hashing &amp; Virtual Nodes</h3>
+      <p>Standard modular hashing ($\text{hash}(key) \pmod N$) suffers catastrophic rebalancing when a node is added or removed, invalidating nearly $100\%$ of cached keys. <strong>Consistent Hashing</strong> maps both servers and keys onto a continuous ring $[0, 2^{32}-1]$. Adding or removing a server reassigns only $K/N$ keys on average. <strong>Virtual Nodes</strong> smooth out non-uniform key distributions and eliminate hot spots.</p>
+      <figure class="viz" data-viz="consistentHashing">
+        <figcaption>Figure 09 — Consistent Hashing Ring: Add and remove server nodes, toggle 1x vs. 3x virtual node replication, and observe uniform key partition rebalancing.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 10 -->
+    <section class="chapter" id="rate-limiting">
+      <div class="ch-meta"><span class="ch-num">10</span><span class="ch-tag">Traffic Shaping</span></div>
+      <h3>Rate Limiting Algorithms: Token Bucket vs. Sliding Window</h3>
+      <p>Rate limiting shields services from denial-of-service surges and enforces multi-tenant usage quotas. The <strong>Token Bucket</strong> algorithm permits controlled bursts up to bucket capacity and refills steadily. The <strong>Sliding Window Counter</strong> prevents traffic spike exploitation across fixed window boundaries.</p>
+      <figure class="viz" data-viz="rateLimiter">
+        <figcaption>Figure 10 — Multi-Algorithm Rate Limiter Arena: Compare Token Bucket burst capacity against Sliding Window Counter limits under simulated traffic bursts.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 11 -->
+    <section class="chapter" id="caching-stampede">
+      <div class="ch-meta"><span class="ch-num">11</span><span class="ch-tag">Caching Strategies</span></div>
+      <h3>Distributed Caching &amp; The Thundering Herd Problem</h3>
+      <p>When an intensely popular cached key expires, thousands of concurrent client requests suddenly experience a cache miss and rush to query the database simultaneously—a catastrophic failure known as a <strong>Cache Stampede / Thundering Herd</strong>. Employing <em>Singleflight</em> or distributed mutex locking ensures only one background worker computes the query while all others wait and consume the cached result.</p>
+      <figure class="viz" data-viz="cacheStampede">
+        <figcaption>Figure 11 — Cache Stampede Arena: Expire a hot cache key under 1,000 concurrent reader threads and toggle Singleflight Mutex locking to prevent database collapse.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 12 -->
+    <section class="chapter" id="snowflake-id">
+      <div class="ch-meta"><span class="ch-num">12</span><span class="ch-tag">Unique Identifiers</span></div>
+      <h3>Distributed Unique ID Generation: Twitter Snowflake</h3>
+      <p>Auto-incrementing database primary keys create single-point-of-failure bottlenecks and leak business volume metrics. <strong>Twitter Snowflake</strong> generates 64-bit globally unique, roughly time-sortable IDs composed of: 1 sign bit, 41 timestamp bits (giving $\sim 69$ years of millisecond precision), 10 datacenter/machine bits ($1,024$ nodes), and 12 sequence bits ($4,096$ IDs per millisecond per node).</p>
+      <figure class="viz" data-viz="snowflakeId">
+        <figcaption>Figure 12 — 64-Bit Twitter Snowflake ID Decomposer: Generate unique IDs, dissect individual bit boundaries, and inspect NTP clock backward drift safety mechanisms.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 13 -->
+    <section class="chapter" id="bloom-filters">
+      <div class="ch-meta"><span class="ch-num">13</span><span class="ch-tag">Probabilistic Filters</span></div>
+      <h3>Probabilistic Data Structures: Bloom Filters</h3>
+      <p>A <strong>Bloom Filter</strong> is a space-efficient probabilistic data structure used to test set membership in constant time. It guarantees <em>zero false negatives</em> (if it returns "not in set", the item is definitively absent). It may yield a controlled <em>false positive</em> rate governed by bit-array size $m$, element count $n$, and hash function count $k$ via $p \approx (1 - e^{-kn/m})^k$.</p>
+      <figure class="viz" data-viz="bloomFilter">
+        <figcaption>Figure 13 — Interactive Bloom Filter Bit Array: Insert elements through $k=2$ hash functions and observe true positive matches versus false positive edge cases.</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ====================================================================
+         PART III: DATA SYSTEMS, CONSISTENCY & CONSENSUS
+         ==================================================================== -->
+    <header class="part-head" id="part-3">
+      <span class="part-label">Part III</span>
+      <h2>Data Systems, Consistency &amp; Consensus</h2>
+      <p class="part-desc">In distributed data systems, network partitions, split-brain conditions, and node crashes are inevitable realities. This section navigates the trade-offs of CAP and PACELC, database sharding, Dynamo quorum mechanics, Raft consensus, distributed transaction patterns, Kafka commit logs, distributed locking, and conflict-free CRDTs.</p>
+    </header>
+
+    <!-- Chapter 14 -->
+    <section class="chapter" id="pacelc">
+      <div class="ch-meta"><span class="ch-num">14</span><span class="ch-tag">Theoretical Limits</span></div>
+      <h3>CAP &amp; PACELC Theorems</h3>
+      <p>The <strong>CAP Theorem</strong> proves that a distributed data store cannot simultaneously achieve Consistency, Availability, and Partition Tolerance. Daniel Abadi extended this with the <strong>PACELC Theorem</strong>: <em>If there is a Partition (P), trade Consistency (C) vs. Availability (A); Else (E), trade Latency (L) vs. Consistency (C)</em>.</p>
+      <figure class="viz" data-viz="pacelcMatrix">
+        <figcaption>Figure 14 — PACELC Theorem Interactive Matrix: Compare Cassandra (PA/EL), Google Spanner (PC/EC), Amazon DynamoDB, and PostgreSQL architectures.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 15 -->
+    <section class="chapter" id="sharding">
+      <div class="ch-meta"><span class="ch-num">15</span><span class="ch-tag">Horizontal Sharding</span></div>
+      <h3>Database Sharding &amp; Partitioning Strategies</h3>
+      <p>When dataset size exceeds the capacity of a single physical storage server, <strong>horizontal sharding</strong> partitions rows across multiple autonomous database instances. Choosing an effective shard key (e.g., <code>hash(user_id) % N</code>) prevents data skew and minimizes expensive cross-shard scatter-gather joins.</p>
+      <figure class="viz" data-viz="databaseSharding">
+        <figcaption>Figure 15 — Database Sharding Router: Route inserts directly to target shards based on partition key hashes, or execute parallel scatter-gather queries with router merging.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 16 -->
+    <section class="chapter" id="quorum">
+      <div class="ch-meta"><span class="ch-num">16</span><span class="ch-tag">Quorum Consistency</span></div>
+      <h3>Leaderless Replication &amp; Dynamo-Style Quorums</h3>
+      <p>Leaderless systems (Amazon Dynamo, Apache Cassandra) configure $N$ total replicas, write quorum $W$, and read quorum $R$. Under the <strong>Pigeonhole Principle</strong>, if $R + W > N$, the read quorum and write quorum must overlap by at least one node, guaranteeing strong consistency. If $R + W \le N$, stale reads are possible in exchange for ultra-low latency.</p>
+      <figure class="viz" data-viz="quorumConsistency">
+        <figcaption>Figure 16 — Dynamo Quorum Consistency Simulator: Configure $R$ and $W$ across 3 replicas and verify strong consistency versus stale read anomalies.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 17 -->
+    <section class="chapter" id="raft">
+      <div class="ch-meta"><span class="ch-num">17</span><span class="ch-tag">Consensus Algorithms</span></div>
+      <h3>Distributed Consensus: The Raft Protocol</h3>
+      <p>Distributed consensus enables a cluster of nodes to agree on a sequence of state machine operations despite crashes and network delays. <strong>Raft</strong> decomposes consensus into understandable components: <em>Leader Election</em> via randomized election timers and <em>Log Replication</em> requiring majority ($\lfloor N/2 \rfloor + 1$) quorum acknowledgment before committing.</p>
+      <figure class="viz" data-viz="raftConsensus">
+        <figcaption>Figure 17 — 5-Node Raft Consensus Cluster: Kill the active leader, watch election timers expire, observe vote requests elect a new leader, and replicate commit logs.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 18 -->
+    <section class="chapter" id="transactions-saga">
+      <div class="ch-meta"><span class="ch-num">18</span><span class="ch-tag">Distributed Transactions</span></div>
+      <h3>Distributed Transactions: 2PC vs. The Saga Pattern</h3>
+      <p>Classic <strong>Two-Phase Commit (2PC)</strong> coordinates ACID transactions via Prepare and Commit phases, but holds blocking row locks that bottleneck high-throughput microservices. The <strong>Saga Pattern</strong> coordinates asynchronous local transactions with forward execution and backward <em>compensating transactions</em> if a downstream step fails.</p>
+      <figure class="viz" data-viz="twoPhaseCommit">
+        <figcaption>Figure 18 — 2PC vs. Saga Pattern Stepper: Walk through multi-service transaction execution and observe compensating transaction rollbacks when payment declines.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 19 -->
+    <section class="chapter" id="kafka">
+      <div class="ch-meta"><span class="ch-num">19</span><span class="ch-tag">Event Streaming</span></div>
+      <h3>Message Queues &amp; Event Streaming: Kafka Internals</h3>
+      <p>Unlike traditional message brokers (RabbitMQ) that delete messages upon consumption, <strong>Apache Kafka</strong> organizes topics into immutable, append-only partitioned commit logs. Consumers track their own offsets and are grouped into <strong>Consumer Groups</strong>, allowing massive horizontal read scaling and seamless group rebalancing when nodes join or fail.</p>
+      <figure class="viz" data-viz="kafkaStreaming">
+        <figcaption>Figure 19 — Kafka Partition Commit Log: Append messages across 3 partitions and observe dynamic partition rebalancing as consumers join or leave the group.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 20 -->
+    <section class="chapter" id="dist-lock">
+      <div class="ch-meta"><span class="ch-num">20</span><span class="ch-tag">Coordination</span></div>
+      <h3>Distributed Locking &amp; Fencing Tokens</h3>
+      <p>Distributed locks based solely on time-to-live (TTL) expiration can lead to data corruption if a client experiences an unexpected JVM garbage collection pause or network blip. As Martin Kleppmann proved, distributed locks must issue monotonically increasing <strong>Fencing Tokens</strong> ($T, T+1, \dots$) so shared storage engines can reject stale writes from expired lock holders.</p>
+      <figure class="viz" data-viz="distributedLock">
+        <figcaption>Figure 20 — Distributed Lock with Fencing Tokens: Acquire locks, simulate client GC pauses, and watch storage reject out-of-order writes with stale tokens.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 21 -->
+    <section class="chapter" id="crdt">
+      <div class="ch-meta"><span class="ch-num">21</span><span class="ch-tag">Eventual Consistency</span></div>
+      <h3>Conflict-Free Replicated Data Types (CRDTs)</h3>
+      <p>In distributed, offline-first collaborative systems, central locking is impractical. <strong>CRDTs</strong> (Conflict-free Replicated Data Types) provide mathematical convergence guarantees: regardless of message reordering or temporary network partitions, replicas converge deterministically without central coordination using commutative, associative, and idempotent merge operations.</p>
+      <figure class="viz" data-viz="crdtSync">
+        <figcaption>Figure 21 — Multi-Replica CRDT Synchronization: Perform concurrent offline increments across independent geographic replicas and merge states deterministically.</figcaption>
+      </figure>
+    </section>
+
+
+    <!-- ====================================================================
+         PART IV: REAL-WORLD LARGE-SCALE ARCHITECTURAL BLUEPRINTS
+         ==================================================================== -->
+    <header class="part-head" id="part-4">
+      <span class="part-label">Part IV</span>
+      <h2>Real-World Large-Scale Architectural Blueprints</h2>
+      <p class="part-desc">Putting all foundational and distributed components together to design hyperscale real-world systems: TinyURL, distributed web crawlers, real-time chat platforms, video streaming pipelines, distributed search engines, collaborative document editors, and full-stack distributed observability.</p>
+    </header>
+
+    <!-- Chapter 22 -->
+    <section class="chapter" id="tinyurl">
+      <div class="ch-meta"><span class="ch-num">22</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing a URL Shortener (TinyURL)</h3>
+      <p>A URL shortener maps lengthy URLs to compact 7-character Base62 keys ($[0\text{-}9, a\text{-}z, A\text{-}Z]$). With $62^7 \approx 3.5 \times 10^{12}$ (3.5 trillion) available unique codes, a dedicated <strong>Key Generation Service (KGS)</strong> pre-generates unique keys into memory buffers, eliminating hash collision retry penalties and database write locks.</p>
+      <figure class="viz" data-viz="tinyUrl">
+        <figcaption>Figure 22 — TinyURL Pipeline Simulator: Generate 7-character Base62 short codes from KGS buffers and inspect HTTP 301 vs. 302 redirection cache behavior.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 23 -->
+    <section class="chapter" id="crawler">
+      <div class="ch-meta"><span class="ch-num">23</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing a Distributed Web Crawler</h3>
+      <p>Crawling billions of web pages requires an intelligent <strong>URL Frontier</strong> architecture that balances <em>Priority</em> (high-value pages first) and <em>Politeness</em> (never overwhelming a single host with parallel requests). A distributed Bloom filter discards duplicate URLs before they enter the download queue, saving terabytes of network bandwidth.</p>
+      <figure class="viz" data-viz="webCrawler">
+        <figcaption>Figure 23 — Distributed Web Crawler Frontier: Observe host-based politeness delay queues and Bloom filter duplicate URL deduplication in action.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 24 -->
+    <section class="chapter" id="chat">
+      <div class="ch-meta"><span class="ch-num">24</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing a Real-Time Chat &amp; Notification System</h3>
+      <p>A real-time chat service maintains millions of persistent, stateful <strong>WebSocket</strong> connections across distributed gateway servers. Messages published to a chat room are routed across gateways via a high-performance <strong>Redis Pub/Sub</strong> backplane, while a dedicated <strong>Presence Service</strong> monitors client heartbeat pings to detect disconnections.</p>
+      <figure class="viz" data-viz="chatWebsocket">
+        <figcaption>Figure 24 — Distributed WebSocket Chat Gateway: Send messages across isolated gateway nodes via Redis Pub/Sub channels and monitor user presence heartbeats.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 25 -->
+    <section class="chapter" id="video-streaming">
+      <div class="ch-meta"><span class="ch-num">25</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing a Video Streaming Platform (YouTube / Netflix)</h3>
+      <p>Video streaming platforms ingest raw multi-gigabyte video files, transcode them into multiple resolution profiles (1080p, 720p, 480p), and slice them into 2-to-6 second chunks for <strong>HLS / MPEG-DASH</strong> streaming. Client players continuously monitor available bandwidth and buffer health, executing <strong>Adaptive Bitrate (ABR)</strong> profile switching without playback stalls.</p>
+      <figure class="viz" data-viz="videoStreaming">
+        <figcaption>Figure 25 — Adaptive Bitrate Video Streaming: Throttle client network bandwidth and observe player chunk requests dynamically switch between 1080p, 720p, and 480p.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 26 -->
+    <section class="chapter" id="search-index">
+      <div class="ch-meta"><span class="ch-num">26</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing an Inverted Index &amp; Distributed Search Engine</h3>
+      <p>Search engines (Elasticsearch, Apache Lucene) build <strong>Inverted Indexes</strong> that map tokenized terms to sorted lists of matching document identifiers (postings lists). Multi-term queries intersect postings lists in linear $\mathcal{O}(M + N)$ time using skip pointers and compute document relevance scores via algorithms like BM25.</p>
+      <figure class="viz" data-viz="invertedIndex">
+        <figcaption>Figure 26 — Inverted Index Search Engine: Enter search terms, inspect tokenized postings lists, and observe postings list intersection logic.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 27 -->
+    <section class="chapter" id="collab-editor">
+      <div class="ch-meta"><span class="ch-num">27</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing a Real-Time Collaborative Document Editor</h3>
+      <p>When multiple users edit a shared document concurrently without network locks, characters inserted at the same index can overwrite or corrupt text. Real-time collaborative engines utilize <strong>Operational Transformation (OT)</strong> or <strong>CRDT Fractional Indexing</strong> (Yjs, Automerge) to guarantee that remote edits preserve user intent and converge identically on all clients.</p>
+      <figure class="viz" data-viz="collabEditor">
+        <figcaption>Figure 27 — Collaborative Document Conflict Resolver: Alice and Bob execute concurrent edits at identical document offsets; observe conflict-free character sequence convergence.</figcaption>
+      </figure>
+    </section>
+
+    <!-- Chapter 28 -->
+    <section class="chapter" id="observability">
+      <div class="ch-meta"><span class="ch-num">28</span><span class="ch-tag">System Blueprint</span></div>
+      <h3>Designing Distributed Observability: Tracing &amp; Metrics</h3>
+      <p>Debugging multi-tier distributed microservices requires end-to-end distributed tracing. Using standard <strong>W3C TraceContext</strong> headers (<code>traceparent</code>), each request propagates a global <code>TraceID</code> and localized <code>SpanID</code> across network hops, assembling an end-to-end flame chart that pinpoints database and downstream service latency bottlenecks.</p>
+      <figure class="viz" data-viz="distributedTracing">
+        <figcaption>Figure 28 — Distributed Trace Waterfall: Inject live distributed trace requests across Gateway, Auth, Order, and Database microservices to inspect span latencies.</figcaption>
+      </figure>
+    </section>
+
+  </main>
+</div>
+
+<footer class="site-foot">
+  <p><strong>System Design, Component by Component</strong> — An open-source interactive architectural guide.</p>
+  <p>Curricular sources: Martin Kleppmann (DDIA), Alex Xu (System Design Interview), Gang of Four (Design Patterns), Robert C. Martin (Clean Architecture).</p>
+</footer>
+
+<script src="assets/core.js"></script>
+<script src="assets/viz-lld-foundations.js"></script>
+<script src="assets/viz-scale-primitives.js"></script>
+<script src="assets/viz-data-consensus.js"></script>
+<script src="assets/viz-system-blueprints.js"></script>
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    if (window.OS && window.OS.boot) {
+      window.OS.boot();
+    }
+  });
+</script>
+</body>
+</html>

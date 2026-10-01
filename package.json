@@ -1,0 +1,19 @@
+{
+  "name": "a2z-system-design",
+  "version": "1.0.0",
+  "description": "System Design, Component by Component — An Explorable Architectural Guide to Scalable, Fault-Tolerant & Low-Level Systems",
+  "main": "index.html",
+  "scripts": {
+    "test": "node tests/audit-all-widgets.js"
+  },
+  "keywords": [
+    "system-design",
+    "distributed-systems",
+    "low-level-design",
+    "architecture",
+    "explorable-explanation",
+    "interactive-curriculum"
+  ],
+  "author": "Deep Shah",
+  "license": "MIT"
+}
