@@ -4,7 +4,9 @@
   "description": "System Design, Component by Component — An Explorable Architectural Guide to Scalable, Fault-Tolerant & Low-Level Systems",
   "main": "index.html",
   "scripts": {
-    "test": "node tests/audit-all-widgets.js"
+    "test": "node tests/audit-all-widgets.js && python3 tests/e2e-browser-audit.py",
+    "test:unit": "node tests/audit-all-widgets.js",
+    "test:e2e": "python3 tests/e2e-browser-audit.py"
   },
   "keywords": [
     "system-design",
